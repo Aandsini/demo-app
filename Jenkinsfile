@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    IMAGE = capeahhhhhhhhh/demo-app"
+    IMAGE = "capeahhhhhhhhh/demo-app"
     TAG = "latest"
   }
 
