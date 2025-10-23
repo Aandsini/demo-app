@@ -31,12 +31,15 @@ pipeline {
     }
 
     stage('Deploy to Kubernetes via Helm') {
-      steps {
-        withCredentials([file(credentialsId: 'kubeconfig-file', variable: 'KUBECONF')]) {
-          sh '''
-            export KUBECONFIG=$KUBECONF
-            helm upgrade --install demo-app helm-chart --set image.repository=${IMAGE} --set image.tag=${TAG}
-          '''
+    steps {
+        withCredentials([string(credentialsId: 'kubeconfig', variable: 'KUBECONF')]) {
+            sh '''
+                echo "$KUBECONF" > kubeconfig.yaml
+                helm upgrade --install demo-app helm-chart \
+                  --set image.repository=capeahhhhhhhhh/demo-app \
+                  --set image.tag=latest \
+                  --kubeconfig kubeconfig.yaml
+            '''
         }
       }
     }
